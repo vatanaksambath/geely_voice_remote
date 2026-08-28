@@ -6,27 +6,25 @@ import { Mic, Command, Fan, Car, Music, Map } from 'lucide-react';
 import { COMMAND_GROUPS, CommandCategory } from '@/utils/commandService';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
 import DynamicClimateControls from '@/components/DynamicClimateControls';
+import DynamicWindowControls from '@/components/DynamicWindowControls';
 import { cn } from '@/components/BottomNav';
 
 const CATEGORIES: CommandCategory[] = [
   'Climate Control', 
   'Vehicle Controls', 
-  'Media & Entertainment', 
-  'Navigation & Phone'
+  'Media & Entertainment'
 ];
 
 const CATEGORY_ICONS: Record<CommandCategory, any> = {
   'Climate Control': Fan,
   'Vehicle Controls': Car,
-  'Media & Entertainment': Music,
-  'Navigation & Phone': Map
+  'Media & Entertainment': Music
 };
 
 const CATEGORY_SHORT_NAMES: Record<CommandCategory, string> = {
   'Climate Control': 'Climate',
   'Vehicle Controls': 'Vehicle',
-  'Media & Entertainment': 'Media',
-  'Navigation & Phone': 'Nav'
+  'Media & Entertainment': 'Media'
 };
 
 export default function SoundboardPage() {
@@ -106,6 +104,12 @@ export default function SoundboardPage() {
             {activeCategory === 'Climate Control' && (
               <div className="mb-4">
                 <DynamicClimateControls />
+              </div>
+            )}
+
+            {activeCategory === 'Vehicle Controls' && (
+              <div className="mb-4">
+                <DynamicWindowControls />
               </div>
             )}
 

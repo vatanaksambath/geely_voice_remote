@@ -1,4 +1,4 @@
-export type CommandCategory = 'Climate Control' | 'Vehicle Controls' | 'Media & Entertainment' | 'Navigation & Phone';
+export type CommandCategory = 'Climate Control' | 'Vehicle Controls' | 'Media & Entertainment';
 
 export interface VoiceCommand {
   id: string;
@@ -39,20 +39,11 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     ]
   },
 
-  // Vehicle Controls
   {
-    id: 'windows', category: 'Vehicle Controls', titleEn: 'Windows', titleKm: 'កញ្ចក់ឡាន',
+    id: 'trunk', category: 'Vehicle Controls', titleEn: 'Trunk', titleKm: 'ឃ្លុបក្រោយ',
     commands: [
-      { id: 'window_open', labelEn: 'Open', labelKm: 'បើក', chinesePhrase: '打开车窗' },
-      { id: 'window_crack', labelEn: 'Open a Bit', labelKm: 'បើកបន្តិច', chinesePhrase: '把车窗打开一条缝' },
-      { id: 'window_close', labelEn: 'Close', labelKm: 'បិទ', chinesePhrase: '关闭车窗' },
-    ]
-  },
-  {
-    id: 'sunroof', category: 'Vehicle Controls', titleEn: 'Sunroof', titleKm: 'ដំបូលឡាន',
-    commands: [
-      { id: 'sunroof_open', labelEn: 'Open', labelKm: 'បើក', chinesePhrase: '打开天窗' },
-      { id: 'sunroof_close', labelEn: 'Close', labelKm: 'បិទ', chinesePhrase: '关闭天窗' },
+      { id: 'trunk_open', labelEn: 'Open', labelKm: 'បើក', chinesePhrase: '打开后备箱' },
+      { id: 'trunk_close', labelEn: 'Close', labelKm: 'បិទ', chinesePhrase: '关闭后备箱' },
     ]
   },
   {
@@ -63,10 +54,10 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     ]
   },
   {
-    id: 'trunk', category: 'Vehicle Controls', titleEn: 'Trunk', titleKm: 'ឃ្លុបក្រោយ',
+    id: 'sunroof', category: 'Vehicle Controls', titleEn: 'Sunroof', titleKm: 'ដំបូលឡាន',
     commands: [
-      { id: 'trunk_open', labelEn: 'Open', labelKm: 'បើក', chinesePhrase: '打开后备箱' },
-      { id: 'trunk_close', labelEn: 'Close', labelKm: 'បិទ', chinesePhrase: '关闭后备箱' },
+      { id: 'sunroof_open', labelEn: 'Open', labelKm: 'បើក', chinesePhrase: '打开天窗' },
+      { id: 'sunroof_close', labelEn: 'Close', labelKm: 'បិទ', chinesePhrase: '关闭天窗' },
     ]
   },
   {
@@ -76,12 +67,7 @@ export const COMMAND_GROUPS: CommandGroup[] = [
       { id: 'door_unlock', labelEn: 'Unlock', labelKm: 'ដោះសោ', chinesePhrase: '解锁车门' },
     ]
   },
-  {
-    id: 'steering', category: 'Vehicle Controls', titleEn: 'Steering', titleKm: 'ចង្កូត',
-    commands: [
-      { id: 'steer_heat', labelEn: 'Heating', labelKm: 'កម្តៅ', chinesePhrase: '打开方向盘加热' },
-    ]
-  },
+
 
   // Media
   {
@@ -109,38 +95,6 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     id: 'radio', category: 'Media & Entertainment', titleEn: 'Radio', titleKm: 'វិទ្យុ',
     commands: [
       { id: 'radio_on', labelEn: 'Turn On', labelKm: 'បើក', chinesePhrase: '打开收音机' },
-    ]
-  },
-
-  // Navigation & Phone
-  {
-    id: 'nav_dest', category: 'Navigation & Phone', titleEn: 'Navigation', titleKm: 'នាំផ្លូវ',
-    commands: [
-      { id: 'nav_home', labelEn: 'Home', labelKm: 'ផ្ទះ', chinesePhrase: '导航回家' },
-      { id: 'nav_company', labelEn: 'Company', labelKm: 'ក្រុមហ៊ុន', chinesePhrase: '导航去公司' },
-      { id: 'nav_cancel', labelEn: 'Cancel', labelKm: 'បោះបង់', chinesePhrase: '取消导航' },
-    ]
-  },
-  {
-    id: 'find_poi', category: 'Navigation & Phone', titleEn: 'Find POI', titleKm: 'ស្វែងរកទីតាំង',
-    commands: [
-      { id: 'find_gas', labelEn: 'Gas', labelKm: 'ប្រេង', chinesePhrase: '找一下附近的加油站' },
-      { id: 'find_charge', labelEn: 'Charge', labelKm: 'សាកថ្ម', chinesePhrase: '找一下附近的充电站' },
-    ]
-  },
-  {
-    id: 'map_zoom', category: 'Navigation & Phone', titleEn: 'Map Zoom', titleKm: 'ពង្រីក/បង្រួមផែនទី',
-    commands: [
-      { id: 'map_zoom_out', labelEn: 'Out (-)', labelKm: 'បង្រួម', chinesePhrase: '缩小地图' },
-      { id: 'map_zoom_in', labelEn: 'In (+)', labelKm: 'ពង្រីក', chinesePhrase: '放大地图' },
-    ]
-  },
-  {
-    id: 'phone_call', category: 'Navigation & Phone', titleEn: 'Phone Call', titleKm: 'ទូរស័ព្ទ',
-    commands: [
-      { id: 'call_answer', labelEn: 'Answer', labelKm: 'ទទួល', chinesePhrase: '接听电话' },
-      { id: 'call_hangup', labelEn: 'Hang Up', labelKm: 'ដាក់ចុះ', chinesePhrase: '挂断电话' },
-      { id: 'call_wife', labelEn: 'Call Wife', labelKm: 'តេប្រពន្ធ', chinesePhrase: '打电话给老婆' },
     ]
   }
 ];
