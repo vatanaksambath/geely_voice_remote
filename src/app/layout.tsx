@@ -11,6 +11,12 @@ const kantumruy = Kantumruy_Pro({
 export const metadata: Metadata = {
   title: "Geely Voice Command",
   description: "Voice command remote control for Geely Galaxy vehicle",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Geely Voice",
+  },
 };
 
 export const viewport = {
@@ -18,6 +24,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: '#09090b',
 };
 
 import Script from 'next/script';
@@ -47,6 +54,19 @@ export default function RootLayout({
                 } catch (e) {}
               })();
             `,
+          }}
+        />
+        <Script
+          id="register-sw"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js');
+                });
+              }
+            `
           }}
         />
       </head>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Minus, Plus, Thermometer, Fan, Wind, Flame } from 'lucide-react';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
@@ -31,16 +31,33 @@ export default function DynamicClimateControls() {
     setTimeout(() => setActivePhraseId(null), 2000);
   };
 
+  const tempTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const fanTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const adjustTemp = (delta: number) => {
-    const newTemp = Math.max(16, Math.min(30, temp + delta));
-    setTemp(newTemp);
-    handleSpeak(`temp_${newTemp}`, `把温度调到${newTemp}度`);
+    setTemp(prev => {
+      const newTemp = Math.max(16, Math.min(30, prev + delta));
+      
+      if (tempTimeoutRef.current) clearTimeout(tempTimeoutRef.current);
+      tempTimeoutRef.current = setTimeout(() => {
+        handleSpeak(`temp_${newTemp}`, `把温度调到${newTemp}度`);
+      }, 600);
+      
+      return newTemp;
+    });
   };
 
   const adjustFan = (delta: number) => {
-    const newFan = Math.max(1, Math.min(9, fan + delta));
-    setFan(newFan);
-    handleSpeak(`fan_${newFan}`, `把风量调到${newFan}档`);
+    setFan(prev => {
+      const newFan = Math.max(1, Math.min(9, prev + delta));
+      
+      if (fanTimeoutRef.current) clearTimeout(fanTimeoutRef.current);
+      fanTimeoutRef.current = setTimeout(() => {
+        handleSpeak(`fan_${newFan}`, `把风量调到${newFan}档`);
+      }, 600);
+      
+      return newFan;
+    });
   };
 
   const setDriverSeatLevel = (level: VentLevel) => {
