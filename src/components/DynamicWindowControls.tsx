@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AppWindow } from 'lucide-react';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { cn } from '@/components/BottomNav';
 
 type WindowTarget = 'all' | 'driver' | 'passenger' | 'rear_left' | 'rear_right';
@@ -33,7 +34,7 @@ const CHINESE_TARGETS: Record<WindowTarget, string> = {
 
 export default function DynamicWindowControls() {
   const { speak } = useSpeechSynthesis();
-  const [target, setTarget] = useState<WindowTarget>('all');
+  const [target, setTarget] = useLocalStorage<WindowTarget>('geely_window_target', 'all');
   const [activePhraseId, setActivePhraseId] = useState<string | null>(null);
 
   const handleAction = (action: WindowAction) => {

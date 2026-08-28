@@ -2,35 +2,43 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, Command, Fan, Car, Music, Map } from 'lucide-react';
+import { Mic, Command, Fan, Car, Music, Map, Sparkles } from 'lucide-react';
 import { COMMAND_GROUPS, CommandCategory } from '@/utils/commandService';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import DynamicClimateControls from '@/components/DynamicClimateControls';
 import DynamicWindowControls from '@/components/DynamicWindowControls';
 import DynamicMediaControls from '@/components/DynamicMediaControls';
+import DynamicLightingControls from '@/components/DynamicLightingControls';
+import DynamicSeatControls from '@/components/DynamicSeatControls';
+import DynamicEVControls from '@/components/DynamicEVControls';
+import DynamicSmartModes from '@/components/DynamicSmartModes';
 import { cn } from '@/components/BottomNav';
 
 const CATEGORIES: CommandCategory[] = [
   'Climate Control',
   'Vehicle Controls',
-  'Media & Entertainment'
+  'Media & Entertainment',
+  'Advanced Controls'
 ];
 
 const CATEGORY_ICONS: Record<CommandCategory, any> = {
   'Climate Control': Fan,
   'Vehicle Controls': Car,
-  'Media & Entertainment': Music
+  'Media & Entertainment': Music,
+  'Advanced Controls': Sparkles
 };
 
 const CATEGORY_SHORT_NAMES: Record<CommandCategory, string> = {
   'Climate Control': 'Climate',
   'Vehicle Controls': 'Vehicle',
-  'Media & Entertainment': 'Media'
+  'Media & Entertainment': 'Media',
+  'Advanced Controls': 'Advanced'
 };
 
 export default function SoundboardPage() {
   const { speak, isSpeaking, supported } = useSpeechSynthesis();
-  const [activeCategory, setActiveCategory] = useState<CommandCategory>('Climate Control');
+  const [activeCategory, setActiveCategory] = useLocalStorage<CommandCategory>('geely_active_category', 'Climate Control');
   const [activePhraseId, setActivePhraseId] = useState<string | null>(null);
 
   const handleSpeak = (id: string, phrase: string) => {
@@ -99,6 +107,15 @@ export default function SoundboardPage() {
             {activeCategory === 'Vehicle Controls' && (
               <div className="mb-4">
                 <DynamicWindowControls />
+              </div>
+            )}
+
+            {activeCategory === 'Advanced Controls' && (
+              <div className="flex flex-col space-y-4 mb-4">
+                <DynamicSmartModes />
+                <DynamicLightingControls />
+                <DynamicSeatControls />
+                <DynamicEVControls />
               </div>
             )}
 

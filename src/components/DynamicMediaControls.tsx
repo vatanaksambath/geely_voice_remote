@@ -4,12 +4,13 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Minus, Plus, Volume2, VolumeX } from 'lucide-react';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { cn } from '@/components/BottomNav';
 
 export default function DynamicMediaControls() {
   const { speak } = useSpeechSynthesis();
   
-  const [volume, setVolume] = useState(15);
+  const [volume, setVolume] = useLocalStorage('geely_media_vol', 10);
   const [activePhraseId, setActivePhraseId] = useState<string | null>(null);
   
   const volumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);

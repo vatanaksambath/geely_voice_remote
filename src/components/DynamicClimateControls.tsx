@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Minus, Plus, Thermometer, Fan, Wind, Flame } from 'lucide-react';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { cn } from '@/components/BottomNav';
 
 const LEVELS = ['off', 'low', 'med', 'high'] as const;
@@ -12,16 +13,16 @@ type VentLevel = typeof LEVELS[number];
 export default function DynamicClimateControls() {
   const { speak } = useSpeechSynthesis();
   
-  const [temp, setTemp] = useState(22);
-  const [fan, setFan] = useState(3);
+  const [temp, setTemp] = useLocalStorage('geely_ac_temp', 22);
+  const [fan, setFan] = useLocalStorage('geely_ac_fan', 3);
   
-  const [driverMode, setDriverMode] = useState<'vent' | 'heat'>('vent');
-  const [passengerMode, setPassengerMode] = useState<'vent' | 'heat'>('vent');
+  const [driverMode, setDriverMode] = useLocalStorage<'vent' | 'heat'>('geely_ac_driver_mode', 'vent');
+  const [passengerMode, setPassengerMode] = useLocalStorage<'vent' | 'heat'>('geely_ac_pass_mode', 'vent');
   
-  const [driverVent, setDriverVent] = useState<VentLevel>('off');
-  const [passengerVent, setPassengerVent] = useState<VentLevel>('off');
-  const [driverHeat, setDriverHeat] = useState<VentLevel>('off');
-  const [passengerHeat, setPassengerHeat] = useState<VentLevel>('off');
+  const [driverVent, setDriverVent] = useLocalStorage<VentLevel>('geely_ac_driver_vent', 'off');
+  const [passengerVent, setPassengerVent] = useLocalStorage<VentLevel>('geely_ac_pass_vent', 'off');
+  const [driverHeat, setDriverHeat] = useLocalStorage<VentLevel>('geely_ac_driver_heat', 'off');
+  const [passengerHeat, setPassengerHeat] = useLocalStorage<VentLevel>('geely_ac_pass_heat', 'off');
 
   const [activePhraseId, setActivePhraseId] = useState<string | null>(null);
 

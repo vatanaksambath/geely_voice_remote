@@ -1,4 +1,4 @@
-export type CommandCategory = 'Climate Control' | 'Vehicle Controls' | 'Media & Entertainment';
+export type CommandCategory = 'Climate Control' | 'Vehicle Controls' | 'Media & Entertainment' | 'Advanced Controls';
 
 export interface VoiceCommand {
   id: string;
@@ -86,20 +86,6 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     commands: [
       { id: 'wipers_on', labelEn: 'On', labelKm: 'បើក', chinesePhrase: '打开雨刮' },
       { id: 'wipers_off', labelEn: 'Off', labelKm: 'បិទ', chinesePhrase: '关闭雨刮' },
-    ]
-  },
-  {
-    id: 'ambient_light', category: 'Vehicle Controls', titleEn: 'Ambient Light', titleKm: 'ភ្លើងក្នុងឡាន',
-    commands: [
-      { id: 'ambient_on', labelEn: 'On', labelKm: 'បើក', chinesePhrase: '打开氛围灯' },
-      { id: 'ambient_off', labelEn: 'Off', labelKm: 'បិទ', chinesePhrase: '关闭氛围灯' },
-    ]
-  },
-  {
-    id: 'screen_brightness', category: 'Vehicle Controls', titleEn: 'Brightness', titleKm: 'ពន្លឺអេក្រង់',
-    commands: [
-      { id: 'screen_dim', labelEn: 'Dim', labelKm: 'បន្ថយ', chinesePhrase: '调暗屏幕' },
-      { id: 'screen_bright', labelEn: 'Bright', labelKm: 'ដំឡើង', chinesePhrase: '调亮屏幕' },
     ]
   },
 
