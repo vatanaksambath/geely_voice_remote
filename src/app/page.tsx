@@ -1,69 +1,199 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mic, Command, Fan, Car, Music, Map } from 'lucide-react';
+import { COMMAND_GROUPS, CommandCategory } from '@/utils/commandService';
+import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
+import DynamicClimateControls from '@/components/DynamicClimateControls';
+import { cn } from '@/components/BottomNav';
+
+const CATEGORIES: CommandCategory[] = [
+  'Climate Control', 
+  'Vehicle Controls', 
+  'Media & Entertainment', 
+  'Navigation & Phone'
+];
+
+const CATEGORY_ICONS: Record<CommandCategory, any> = {
+  'Climate Control': Fan,
+  'Vehicle Controls': Car,
+  'Media & Entertainment': Music,
+  'Navigation & Phone': Map
+};
+
+const CATEGORY_SHORT_NAMES: Record<CommandCategory, string> = {
+  'Climate Control': 'Climate',
+  'Vehicle Controls': 'Vehicle',
+  'Media & Entertainment': 'Media',
+  'Navigation & Phone': 'Nav'
+};
+
+export default function SoundboardPage() {
+  const { speak, isSpeaking, supported } = useSpeechSynthesis();
+  const [activeCategory, setActiveCategory] = useState<CommandCategory>('Climate Control');
+  const [activePhraseId, setActivePhraseId] = useState<string | null>(null);
+
+  const handleSpeak = (id: string, phrase: string) => {
+    setActivePhraseId(id);
+    speak(phrase);
+    setTimeout(() => setActivePhraseId(null), 2000); 
+  };
+
+  const activeGroups = COMMAND_GROUPS.filter(g => g.category === activeCategory);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <main className="min-h-screen pb-28 flex flex-col relative transition-colors duration-500">
+      
+      {/* Modern Grid Background - Adaptive to Light/Dark */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.04] dark:opacity-[0.03] invert dark:invert-0" 
+           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
+      </div>
+      
+      {/* Central Glow */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-400/10 dark:bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+      {/* Command Center Header */}
+      <header className="px-6 pt-6 pb-6 relative z-10 flex flex-col items-center">
+        
+        <motion.button
+          whileTap={{ scale: 0.97 }}
+          onClick={() => handleSpeak('wake_word', '你好银河')}
+          className={cn(
+            "relative z-10 w-full max-w-[280px] h-16 rounded-full flex items-center justify-center space-x-4 shadow-xl transition-all duration-500 backdrop-blur-xl overflow-hidden border",
+            activePhraseId === 'wake_word'
+              ? "bg-cyan-500/10 border-cyan-400 shadow-[0_0_30px_rgba(34,211,238,0.3)]"
+              : "bg-white/90 dark:bg-black/60 border-gray-300 dark:border-white/10 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-900/30"
+          )}
+        >
+          {/* Animated background scanline when active */}
+          {activePhraseId === 'wake_word' && (
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-cyan-400/0"
+              animate={{ x: ['-100%', '100%'] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          )}
+          
+          <div className={cn(
+            "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 relative z-10",
+            activePhraseId === 'wake_word' 
+              ? "bg-cyan-500 text-white shadow-[0_0_15px_rgba(34,211,238,0.8)]" 
+              : "bg-cyan-100 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
+          )}>
+            <Mic size={20} className={activePhraseId === 'wake_word' ? "animate-pulse" : ""} />
+          </div>
+          
+          <span className={cn(
+            "text-base font-black tracking-widest uppercase relative z-10 transition-colors",
+            activePhraseId === 'wake_word' ? "text-cyan-700 dark:text-white" : "text-slate-800 dark:text-gray-200"
+          )}>
+            Hi Eva
+          </span>
+        </motion.button>
+      </header>
+
+      {/* Commands Area */}
+      <div className="px-6 flex-1 relative z-10">
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeCategory}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
           >
-            Documentation
-          </a>
+            {activeCategory === 'Climate Control' && (
+              <div className="mb-4">
+                <DynamicClimateControls />
+              </div>
+            )}
+
+            {/* Grid for grouped commands */}
+            {activeGroups.length > 0 && (
+              <div className="grid grid-cols-2 gap-4">
+                {activeGroups.map(group => {
+                  const hasActiveCommand = group.commands.some(cmd => cmd.id === activePhraseId);
+                  const cols = group.commands.length;
+                  
+                  return (
+                    <div key={group.id} className={cn(
+                      "col-span-2 bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300",
+                      hasActiveCommand ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
+                    )}>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center space-x-2">
+                          <Command size={18} className={hasActiveCommand ? "text-cyan-600 dark:text-cyan-400" : "text-gray-400 dark:text-gray-500"} />
+                          <span className="text-slate-800 dark:text-gray-300 font-semibold text-sm tracking-wide">{group.titleEn}</span>
+                        </div>
+                        <span className="text-gray-500 text-xs font-medium">{group.titleKm}</span>
+                      </div>
+                      
+                      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+                        {group.commands.map(cmd => (
+                          <motion.button
+                            key={cmd.id}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => handleSpeak(cmd.id, cmd.chinesePhrase)}
+                            className={cn(
+                              "py-2.5 rounded-xl flex flex-col items-center justify-center transition-all duration-300 overflow-hidden",
+                              activePhraseId === cmd.id
+                                ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/30"
+                                : "bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10"
+                            )}
+                          >
+                            <span className={cn("text-[11px] sm:text-xs font-bold uppercase tracking-wide", activePhraseId === cmd.id ? "text-white" : "text-slate-700 dark:text-gray-300")}>
+                              {cmd.labelKm}
+                            </span>
+                            <span className={cn("text-[9px] mt-0.5", activePhraseId === cmd.id ? "text-cyan-100" : "text-slate-500 dark:text-gray-500")}>
+                              {cmd.labelEn}
+                            </span>
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {!supported && (
+        <div className="fixed top-4 left-4 right-4 bg-red-100 dark:bg-red-500/10 backdrop-blur-md text-red-600 dark:text-red-400 p-4 rounded-2xl text-center text-xs font-medium border border-red-200 dark:border-red-500/20 z-50">
+          Text-to-Speech is not supported in this browser.
         </div>
-      </main>
-    </div>
+      )}
+
+      {/* Category Bottom Nav */}
+      <nav className="fixed bottom-0 left-0 right-0 h-[90px] bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-gray-200 dark:border-white/5 flex items-center justify-around z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.5)] safe-area-pb px-2">
+        {CATEGORIES.map(category => {
+          const Icon = CATEGORY_ICONS[category];
+          const isActive = activeCategory === category;
+          const shortName = CATEGORY_SHORT_NAMES[category];
+          
+          return (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={cn(
+                "flex flex-col items-center justify-center w-full h-full space-y-1.5 transition-colors duration-300",
+                isActive ? "text-cyan-600 dark:text-cyan-400" : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+              )}
+            >
+              <div className={cn(
+                "p-2.5 rounded-2xl transition-all duration-300",
+                isActive ? "bg-cyan-100 dark:bg-cyan-400/10 scale-110" : "bg-transparent scale-100"
+              )}>
+                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+              </div>
+              <span className="text-[10px] font-bold tracking-wider uppercase">{shortName}</span>
+            </button>
+          )
+        })}
+      </nav>
+
+    </main>
   );
 }

@@ -1,0 +1,67 @@
+'use client';
+
+import { useCallback, useEffect, useState } from 'react';
+
+export const useSpeechSynthesis = () => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [supported, setSupported] = useState(true);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) {
+      setSupported(false);
+      return;
+    }
+
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    };
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }, []);
+
+  const speak = useCallback((text: string) => {
+    if (!supported || typeof window === 'undefined') return;
+
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Try to find a Chinese voice
+    const zhVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('cmn'));
+    if (zhVoice) {
+      utterance.voice = zhVoice;
+    }
+    
+    utterance.lang = 'zh-CN';
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = (e) => {
+      console.error('TTS Error:', e);
+      setIsSpeaking(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }, [supported, voices]);
+
+  const stop = useCallback(() => {
+    if (supported && typeof window !== 'undefined') {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  }, [supported]);
+
+  return {
+    speak,
+    stop,
+    isSpeaking,
+    supported
+  };
+};
