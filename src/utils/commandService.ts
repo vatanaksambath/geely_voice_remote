@@ -67,6 +67,27 @@ export const COMMAND_GROUPS: CommandGroup[] = [
       { id: 'door_unlock', labelEn: 'Unlock', labelKm: 'ដោះសោ', chinesePhrase: '解锁车门' },
     ]
   },
+  {
+    id: 'mirrors', category: 'Vehicle Controls', titleEn: 'Mirrors', titleKm: 'កញ្ចក់ចំហៀង',
+    commands: [
+      { id: 'mirror_fold', labelEn: 'Fold', labelKm: 'បត់ចូល', chinesePhrase: '折叠后视镜' },
+      { id: 'mirror_unfold', labelEn: 'Unfold', labelKm: 'បើកចេញ', chinesePhrase: '展开后视镜' },
+    ]
+  },
+  {
+    id: 'ambient_light', category: 'Vehicle Controls', titleEn: 'Ambient Light', titleKm: 'ភ្លើងក្នុងឡាន',
+    commands: [
+      { id: 'ambient_on', labelEn: 'On', labelKm: 'បើក', chinesePhrase: '打开氛围灯' },
+      { id: 'ambient_off', labelEn: 'Off', labelKm: 'បិទ', chinesePhrase: '关闭氛围灯' },
+    ]
+  },
+  {
+    id: 'screen_brightness', category: 'Vehicle Controls', titleEn: 'Screen', titleKm: 'អេក្រង់',
+    commands: [
+      { id: 'screen_dim', labelEn: 'Dim', labelKm: 'បន្ថយពន្លឺ', chinesePhrase: '调暗屏幕' },
+      { id: 'screen_bright', labelEn: 'Brighten', labelKm: 'ដំឡើងពន្លឺ', chinesePhrase: '调亮屏幕' },
+    ]
+  },
 
 
   // Media
@@ -95,6 +116,13 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     id: 'radio', category: 'Media & Entertainment', titleEn: 'Radio', titleKm: 'វិទ្យុ',
     commands: [
       { id: 'radio_on', labelEn: 'Turn On', labelKm: 'បើក', chinesePhrase: '打开收音机' },
+    ]
+  },
+  {
+    id: 'mute_control', category: 'Media & Entertainment', titleEn: 'Mute', titleKm: 'បិទសំឡេង',
+    commands: [
+      { id: 'vol_mute', labelEn: 'Mute', labelKm: 'បិទ', chinesePhrase: '静音' },
+      { id: 'vol_unmute', labelEn: 'Unmute', labelKm: 'បើក', chinesePhrase: '取消静音' },
     ]
   }
 ];

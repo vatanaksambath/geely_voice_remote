@@ -115,22 +115,24 @@ export default function SoundboardPage() {
 
             {/* Grid for grouped commands */}
             {activeGroups.length > 0 && (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 {activeGroups.map(group => {
                   const hasActiveCommand = group.commands.some(cmd => cmd.id === activePhraseId);
                   const cols = group.commands.length;
+                  const isWide = cols > 2;
                   
                   return (
                     <div key={group.id} className={cn(
-                      "col-span-2 bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300",
+                      isWide ? "col-span-2" : "col-span-1",
+                      "bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-[20px] p-3.5 shadow-xl dark:shadow-2xl transition-all duration-300",
                       hasActiveCommand ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
                     )}>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center space-x-2">
-                          <Command size={18} className={hasActiveCommand ? "text-cyan-600 dark:text-cyan-400" : "text-gray-400 dark:text-gray-500"} />
-                          <span className="text-slate-800 dark:text-gray-300 font-semibold text-sm tracking-wide">{group.titleEn}</span>
+                      <div className="flex flex-col mb-3">
+                        <div className="flex items-center space-x-1.5">
+                          <Command size={14} className={hasActiveCommand ? "text-cyan-600 dark:text-cyan-400" : "text-gray-400 dark:text-gray-500"} />
+                          <span className="text-slate-800 dark:text-gray-300 font-bold text-[11px] tracking-wide truncate">{group.titleEn}</span>
                         </div>
-                        <span className="text-gray-500 text-xs font-medium">{group.titleKm}</span>
+                        <span className="text-gray-500 text-[9px] font-medium mt-0.5 ml-5 truncate">{group.titleKm}</span>
                       </div>
                       
                       <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
@@ -140,16 +142,16 @@ export default function SoundboardPage() {
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleSpeak(cmd.id, cmd.chinesePhrase)}
                             className={cn(
-                              "py-2.5 rounded-xl flex flex-col items-center justify-center transition-all duration-300 overflow-hidden",
+                              "py-2 rounded-xl flex flex-col items-center justify-center transition-all duration-300 overflow-hidden",
                               activePhraseId === cmd.id
                                 ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/30"
                                 : "bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10"
                             )}
                           >
-                            <span className={cn("text-[11px] sm:text-xs font-bold uppercase tracking-wide", activePhraseId === cmd.id ? "text-white" : "text-slate-700 dark:text-gray-300")}>
+                            <span className={cn("text-[10px] font-bold uppercase tracking-wide text-center px-1 leading-tight", activePhraseId === cmd.id ? "text-white" : "text-slate-700 dark:text-gray-300")}>
                               {cmd.labelKm}
                             </span>
-                            <span className={cn("text-[9px] mt-0.5", activePhraseId === cmd.id ? "text-cyan-100" : "text-slate-500 dark:text-gray-500")}>
+                            <span className={cn("text-[8px] mt-0.5", activePhraseId === cmd.id ? "text-cyan-100" : "text-slate-500 dark:text-gray-500")}>
                               {cmd.labelEn}
                             </span>
                           </motion.button>
