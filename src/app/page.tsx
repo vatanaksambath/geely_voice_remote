@@ -10,8 +10,8 @@ import DynamicWindowControls from '@/components/DynamicWindowControls';
 import { cn } from '@/components/BottomNav';
 
 const CATEGORIES: CommandCategory[] = [
-  'Climate Control', 
-  'Vehicle Controls', 
+  'Climate Control',
+  'Vehicle Controls',
   'Media & Entertainment'
 ];
 
@@ -35,25 +35,25 @@ export default function SoundboardPage() {
   const handleSpeak = (id: string, phrase: string) => {
     setActivePhraseId(id);
     speak(phrase);
-    setTimeout(() => setActivePhraseId(null), 2000); 
+    setTimeout(() => setActivePhraseId(null), 2000);
   };
 
   const activeGroups = COMMAND_GROUPS.filter(g => g.category === activeCategory);
 
   return (
     <main className="min-h-screen pb-28 flex flex-col relative transition-colors duration-500">
-      
+
       {/* Modern Grid Background - Adaptive to Light/Dark */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.04] dark:opacity-[0.03] invert dark:invert-0" 
-           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
+      <div className="fixed inset-0 pointer-events-none opacity-[0.04] dark:opacity-[0.03] invert dark:invert-0"
+        style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
       </div>
-      
+
       {/* Central Glow */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-400/10 dark:bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none"></div>
 
       {/* Command Center Header */}
       <header className="px-6 pt-6 pb-6 relative z-10 flex flex-col items-center">
-        
+
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={() => handleSpeak('wake_word', '你好银河')}
@@ -72,16 +72,16 @@ export default function SoundboardPage() {
               transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
             />
           )}
-          
+
           <div className={cn(
             "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 relative z-10",
-            activePhraseId === 'wake_word' 
-              ? "bg-cyan-500 text-white shadow-[0_0_15px_rgba(34,211,238,0.8)]" 
+            activePhraseId === 'wake_word'
+              ? "bg-cyan-500 text-white shadow-[0_0_15px_rgba(34,211,238,0.8)]"
               : "bg-cyan-100 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
           )}>
             <Mic size={20} className={activePhraseId === 'wake_word' ? "animate-pulse" : ""} />
           </div>
-          
+
           <span className={cn(
             "text-base font-black tracking-widest uppercase relative z-10 transition-colors",
             activePhraseId === 'wake_word' ? "text-cyan-700 dark:text-white" : "text-slate-800 dark:text-gray-200"
@@ -94,7 +94,7 @@ export default function SoundboardPage() {
       {/* Commands Area */}
       <div className="px-6 flex-1 relative z-10">
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={activeCategory}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -120,7 +120,7 @@ export default function SoundboardPage() {
                   const hasActiveCommand = group.commands.some(cmd => cmd.id === activePhraseId);
                   const cols = group.commands.length;
                   const isWide = cols > 2;
-                  
+
                   return (
                     <div key={group.id} className={cn(
                       isWide ? "col-span-2" : "col-span-1",
@@ -134,7 +134,7 @@ export default function SoundboardPage() {
                         </div>
                         <span className="text-gray-500 text-[9px] font-medium mt-0.5 ml-5 truncate">{group.titleKm}</span>
                       </div>
-                      
+
                       <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
                         {group.commands.map(cmd => (
                           <motion.button
@@ -178,7 +178,7 @@ export default function SoundboardPage() {
           const Icon = CATEGORY_ICONS[category];
           const isActive = activeCategory === category;
           const shortName = CATEGORY_SHORT_NAMES[category];
-          
+
           return (
             <button
               key={category}
