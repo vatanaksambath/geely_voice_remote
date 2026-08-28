@@ -99,7 +99,7 @@ export default function SoundboardPage() {
             transition={{ duration: 0.3 }}
           >
             {activeCategory === 'Climate Control' && (
-              <div className="w-full max-w-md mx-auto mb-4">
+              <div className="w-full mb-4">
                 <DynamicClimateControls />
               </div>
             )}

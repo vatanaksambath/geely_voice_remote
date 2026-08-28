@@ -94,11 +94,11 @@ export default function DynamicClimateControls() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
       
       {/* Temperature Control */}
       <div className={cn(
-        "col-span-2 bg-white dark:bg-[#18181b] border rounded-[20px] p-3.5 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col justify-between",
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-3.5 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col justify-between",
         activePhraseId?.startsWith('temp') ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-3">
@@ -148,7 +148,7 @@ export default function DynamicClimateControls() {
 
       {/* Fan Speed Control */}
       <div className={cn(
-        "col-span-2 bg-white dark:bg-[#18181b] border rounded-[20px] p-3.5 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col justify-between",
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-3.5 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col justify-between",
         activePhraseId?.startsWith('fan') ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-3">
@@ -198,7 +198,7 @@ export default function DynamicClimateControls() {
 
       {/* Driver Seat */}
       <div className={cn(
-        "col-span-2 bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300",
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300",
         (activePhraseId?.startsWith('driver_vent') || activePhraseId?.startsWith('driver_heat')) ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-4">
@@ -244,7 +244,7 @@ export default function DynamicClimateControls() {
 
       {/* Passenger Seat */}
       <div className={cn(
-        "col-span-2 bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300",
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300",
         (activePhraseId?.startsWith('pass_vent') || activePhraseId?.startsWith('pass_heat')) ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-4">
