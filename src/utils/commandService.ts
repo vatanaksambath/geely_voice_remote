@@ -120,19 +120,6 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     ]
   },
   {
-    id: 'volume', category: 'Media & Entertainment', titleEn: 'Volume', titleKm: 'សំឡេង',
-    commands: [
-      { id: 'vol_down', labelEn: 'Down (-)', labelKm: 'បន្ថយ', chinesePhrase: '音量调小一点' },
-      { id: 'vol_up', labelEn: 'Up (+)', labelKm: 'ដំឡើង', chinesePhrase: '音量调大一点' },
-    ]
-  },
-  {
-    id: 'radio', category: 'Media & Entertainment', titleEn: 'Radio', titleKm: 'វិទ្យុ',
-    commands: [
-      { id: 'radio_on', labelEn: 'Turn On', labelKm: 'បើក', chinesePhrase: '打开收音机' },
-    ]
-  },
-  {
     id: 'mute_control', category: 'Media & Entertainment', titleEn: 'Mute', titleKm: 'បិទសំឡេង',
     commands: [
       { id: 'vol_mute', labelEn: 'Mute', labelKm: 'បិទ', chinesePhrase: '静音' },

@@ -7,6 +7,7 @@ import { COMMAND_GROUPS, CommandCategory } from '@/utils/commandService';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
 import DynamicClimateControls from '@/components/DynamicClimateControls';
 import DynamicWindowControls from '@/components/DynamicWindowControls';
+import DynamicMediaControls from '@/components/DynamicMediaControls';
 import { cn } from '@/components/BottomNav';
 
 const CATEGORIES: CommandCategory[] = [
@@ -98,6 +99,12 @@ export default function SoundboardPage() {
             {activeCategory === 'Vehicle Controls' && (
               <div className="mb-4">
                 <DynamicWindowControls />
+              </div>
+            )}
+
+            {activeCategory === 'Media & Entertainment' && (
+              <div className="mb-4">
+                <DynamicMediaControls />
               </div>
             )}
 
