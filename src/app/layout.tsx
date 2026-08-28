@@ -74,7 +74,7 @@ export default function RootLayout({
         className={`${kantumruy.className} antialiased bg-slate-50 dark:bg-[#0a0a0a] text-slate-900 dark:text-gray-100 min-h-[100dvh] flex flex-col`}
       >
         <ThemeController />
-        <div className="flex-1 max-w-md mx-auto w-full relative bg-slate-50 dark:bg-[#0a0a0a] shadow-2xl overflow-x-hidden min-h-[100dvh]">
+        <div className="flex-1 w-full max-w-7xl mx-auto relative bg-slate-50 dark:bg-[#0a0a0a] shadow-2xl overflow-x-hidden min-h-[100dvh]">
           {children}
         </div>
       </body>
