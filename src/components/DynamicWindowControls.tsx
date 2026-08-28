@@ -52,17 +52,16 @@ export default function DynamicWindowControls() {
 
   return (
     <div className={cn(
-      "bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300 flex flex-col space-y-4 mb-4",
-      activePhraseId ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
+      "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col space-y-4 mb-4",
+      activePhraseId ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
     )}>
       
-      {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <AppWindow size={20} className={activePhraseId ? "text-cyan-600 dark:text-cyan-400" : "text-gray-400 dark:text-gray-500"} />
-          <span className="text-slate-800 dark:text-gray-300 font-semibold text-sm tracking-wide">Window Controls</span>
+        <div className="flex items-center space-x-1.5">
+          <AppWindow size={16} className={activePhraseId ? "text-cyan-500" : "text-slate-400 dark:text-gray-500"} />
+          <span className="text-slate-800 dark:text-gray-100 font-bold text-xs tracking-wide">Window Controls</span>
         </div>
-        <span className="text-gray-500 text-xs font-medium">បញ្ជាកញ្ចក់ឡាន</span>
+        <span className="text-slate-500 dark:text-gray-400 text-[10px] font-medium">បញ្ជាកញ្ចក់ឡាន</span>
       </div>
 
       {/* Target Selector */}
@@ -72,15 +71,15 @@ export default function DynamicWindowControls() {
             key={t.id}
             onClick={() => setTarget(t.id)}
             className={cn(
-              "py-2.5 rounded-xl text-xs font-bold transition-all duration-300 flex flex-col items-center justify-center",
+              "py-2 rounded-xl flex flex-col items-center justify-center transition-all duration-300",
               t.id === 'all' ? "col-span-2" : "",
               target === t.id
-                ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 ring-2 ring-cyan-400/50"
-                : "bg-gray-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10"
+                ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/30"
+                : "bg-slate-100 dark:bg-[#27272a] hover:bg-slate-200 dark:hover:bg-[#3f3f46]"
             )}
           >
-            <span className={cn("uppercase tracking-wide", target === t.id ? "text-white" : "text-slate-700 dark:text-gray-300")}>{t.labelKm}</span>
-            <span className={cn("text-[9px] mt-0.5", target === t.id ? "text-cyan-100" : "opacity-70")}>{t.labelEn}</span>
+            <span className={cn("text-xs font-bold uppercase tracking-wide", target === t.id ? "text-white" : "text-slate-800 dark:text-gray-100")}>{t.labelKm}</span>
+            <span className={cn("text-[9px] mt-0.5", target === t.id ? "text-cyan-100" : "text-slate-500 dark:text-gray-400")}>{t.labelEn}</span>
           </motion.button>
         ))}
       </div>
@@ -97,22 +96,14 @@ export default function DynamicWindowControls() {
               whileTap={{ scale: 0.95 }}
               onClick={() => handleAction(a.id)}
               className={cn(
-                "py-3.5 rounded-xl flex flex-col items-center justify-center transition-all duration-300 shadow-md overflow-hidden relative",
+                "py-3 rounded-xl flex flex-col items-center justify-center transition-all duration-300 overflow-hidden relative",
                 isActive
-                  ? "bg-cyan-600 text-white shadow-[0_0_20px_rgba(8,145,178,0.4)]"
-                  : "bg-slate-800 dark:bg-gray-800 text-white hover:bg-slate-700 dark:hover:bg-gray-700 hover:shadow-lg"
+                  ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/30"
+                  : "bg-slate-100 dark:bg-[#27272a] hover:bg-slate-200 dark:hover:bg-[#3f3f46]"
               )}
             >
-              {isActive && (
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                />
-              )}
-              <span className="text-xs sm:text-sm font-black uppercase tracking-widest relative z-10">{a.labelKm}</span>
-              <span className="text-[10px] text-gray-300 mt-1 relative z-10">{a.labelEn}</span>
+              <span className={cn("text-xs sm:text-[13px] font-bold uppercase tracking-wide", isActive ? "text-white" : "text-slate-800 dark:text-gray-100")}>{a.labelKm}</span>
+              <span className={cn("text-[9px] mt-0.5", isActive ? "text-cyan-100" : "text-slate-500 dark:text-gray-400")}>{a.labelEn}</span>
             </motion.button>
           )
         })}

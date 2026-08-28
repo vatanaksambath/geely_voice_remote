@@ -51,20 +51,22 @@ export default function SoundboardPage() {
       {/* Central Glow */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-400/10 dark:bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* Command Center Header */}
-      <header className="px-6 pt-6 pb-6 relative z-10 flex flex-col items-center">
+      {/* Compact Header */}
+      <header className="px-6 py-4 relative z-10 flex items-center justify-between">
+        <h2 className="text-lg font-black text-slate-800 dark:text-white tracking-tight">
+          Geely Voice
+        </h2>
 
         <motion.button
-          whileTap={{ scale: 0.97 }}
+          whileTap={{ scale: 0.9 }}
           onClick={() => handleSpeak('wake_word', '你好银河')}
           className={cn(
-            "relative z-10 w-full max-w-[280px] h-16 rounded-full flex items-center justify-center space-x-4 shadow-xl transition-all duration-500 backdrop-blur-xl overflow-hidden border",
+            "flex items-center space-x-1.5 px-3 py-1.5 rounded-full transition-all duration-300 border overflow-hidden relative",
             activePhraseId === 'wake_word'
-              ? "bg-cyan-500/10 border-cyan-400 shadow-[0_0_30px_rgba(34,211,238,0.3)]"
-              : "bg-white/90 dark:bg-black/60 border-gray-300 dark:border-white/10 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-900/30"
+              ? "bg-cyan-500 text-white border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+              : "bg-white dark:bg-[#18181b] text-cyan-600 dark:text-cyan-400 border-slate-200 dark:border-[#27272a] shadow-sm hover:border-cyan-300 dark:hover:border-cyan-800"
           )}
         >
-          {/* Animated background scanline when active */}
           {activePhraseId === 'wake_word' && (
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-cyan-400/0"
@@ -72,22 +74,8 @@ export default function SoundboardPage() {
               transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
             />
           )}
-
-          <div className={cn(
-            "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 relative z-10",
-            activePhraseId === 'wake_word'
-              ? "bg-cyan-500 text-white shadow-[0_0_15px_rgba(34,211,238,0.8)]"
-              : "bg-cyan-100 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400"
-          )}>
-            <Mic size={20} className={activePhraseId === 'wake_word' ? "animate-pulse" : ""} />
-          </div>
-
-          <span className={cn(
-            "text-base font-black tracking-widest uppercase relative z-10 transition-colors",
-            activePhraseId === 'wake_word' ? "text-cyan-700 dark:text-white" : "text-slate-800 dark:text-gray-200"
-          )}>
-            Hi Eva
-          </span>
+          <Mic size={14} className={activePhraseId === 'wake_word' ? "animate-pulse relative z-10" : "relative z-10"} />
+          <span className="text-[10px] font-bold tracking-wider uppercase relative z-10">Hi Eva</span>
         </motion.button>
       </header>
 

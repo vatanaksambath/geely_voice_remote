@@ -84,8 +84,8 @@ export default function DynamicClimateControls() {
       
       {/* Temperature Control */}
       <div className={cn(
-        "col-span-2 bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300 flex flex-col justify-between",
-        activePhraseId?.startsWith('temp') ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col justify-between",
+        activePhraseId?.startsWith('temp') ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
@@ -98,7 +98,7 @@ export default function DynamicClimateControls() {
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => adjustTemp(-0.5)}
-            className="w-14 h-14 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 transition-colors shadow-inner"
+            className="bg-slate-100 dark:bg-[#27272a] border border-slate-200 dark:border-[#27272a] flex items-center justify-center text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors shadow-sm"
           >
             <Minus size={24} />
           </motion.button>
@@ -119,8 +119,8 @@ export default function DynamicClimateControls() {
 
       {/* Fan Speed Control */}
       <div className={cn(
-        "col-span-2 bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300 flex flex-col justify-between",
-        activePhraseId?.startsWith('fan') ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300 flex flex-col justify-between",
+        activePhraseId?.startsWith('fan') ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
@@ -133,7 +133,7 @@ export default function DynamicClimateControls() {
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => adjustFan(-1)}
-            className="w-14 h-14 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 transition-colors shadow-inner"
+            className="bg-slate-100 dark:bg-[#27272a] border border-slate-200 dark:border-[#27272a] flex items-center justify-center text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors shadow-sm"
           >
             <Minus size={24} />
           </motion.button>
@@ -154,8 +154,8 @@ export default function DynamicClimateControls() {
 
       {/* Driver Seat */}
       <div className={cn(
-        "col-span-2 bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300",
-        (activePhraseId?.startsWith('driver_vent') || activePhraseId?.startsWith('driver_heat')) ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300",
+        (activePhraseId?.startsWith('driver_vent') || activePhraseId?.startsWith('driver_heat')) ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
@@ -167,9 +167,9 @@ export default function DynamicClimateControls() {
             <span className="text-slate-800 dark:text-gray-300 font-semibold text-sm tracking-wide">Driver Seat</span>
           </div>
           
-          <div className="flex bg-gray-100 dark:bg-white/5 rounded-lg p-0.5">
-            <button onClick={() => setDriverMode('vent')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", driverMode === 'vent' ? "bg-white dark:bg-gray-800 text-cyan-600 dark:text-cyan-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>VENT</button>
-            <button onClick={() => setDriverMode('heat')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", driverMode === 'heat' ? "bg-white dark:bg-gray-800 text-orange-600 dark:text-orange-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>HEAT</button>
+          <div className="bg-slate-100 dark:bg-[#27272a] rounded-lg p-0.5">
+            <button onClick={() => setDriverMode('vent')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", driverMode === 'vent' ? "bg-white dark:bg-[#3f3f46] text-cyan-600 dark:text-cyan-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>VENT</button>
+            <button onClick={() => setDriverMode('heat')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", driverMode === 'heat' ? "bg-white dark:bg-[#3f3f46] text-orange-600 dark:text-orange-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>HEAT</button>
           </div>
         </div>
         
@@ -188,7 +188,7 @@ export default function DynamicClimateControls() {
                   "py-2.5 rounded-xl text-[10px] sm:text-xs font-bold transition-all duration-300 uppercase tracking-wide",
                   isActive
                     ? `${activeColor} text-white shadow-lg`
-                    : "bg-gray-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10"
+                    : "bg-slate-100 dark:bg-[#27272a] text-slate-500 dark:text-gray-400 hover:bg-slate-200 dark:hover:bg-[#3f3f46]"
                 )}
               >
                 {level}
@@ -200,8 +200,8 @@ export default function DynamicClimateControls() {
 
       {/* Passenger Seat */}
       <div className={cn(
-        "col-span-2 bg-white/80 dark:bg-black/40 backdrop-blur-xl border rounded-3xl p-5 shadow-xl dark:shadow-2xl transition-all duration-300",
-        (activePhraseId?.startsWith('pass_vent') || activePhraseId?.startsWith('pass_heat')) ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]" : "border-gray-200 dark:border-white/10"
+        "bg-white dark:bg-[#18181b] border rounded-[20px] p-4 shadow-sm dark:shadow-xl dark:shadow-black/40 transition-all duration-300",
+        (activePhraseId?.startsWith('pass_vent') || activePhraseId?.startsWith('pass_heat')) ? "border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]" : "border-slate-200 dark:border-[#27272a]"
       )}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
@@ -213,9 +213,9 @@ export default function DynamicClimateControls() {
             <span className="text-slate-800 dark:text-gray-300 font-semibold text-sm tracking-wide">Passenger Seat</span>
           </div>
           
-          <div className="flex bg-gray-100 dark:bg-white/5 rounded-lg p-0.5">
-            <button onClick={() => setPassengerMode('vent')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", passengerMode === 'vent' ? "bg-white dark:bg-gray-800 text-cyan-600 dark:text-cyan-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>VENT</button>
-            <button onClick={() => setPassengerMode('heat')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", passengerMode === 'heat' ? "bg-white dark:bg-gray-800 text-orange-600 dark:text-orange-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>HEAT</button>
+          <div className="bg-slate-100 dark:bg-[#27272a] rounded-lg p-0.5">
+            <button onClick={() => setPassengerMode('vent')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", passengerMode === 'vent' ? "bg-white dark:bg-[#3f3f46] text-cyan-600 dark:text-cyan-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>VENT</button>
+            <button onClick={() => setPassengerMode('heat')} className={cn("px-3 py-1 rounded-md text-[10px] font-bold transition-all", passengerMode === 'heat' ? "bg-white dark:bg-[#3f3f46] text-orange-600 dark:text-orange-400 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300")}>HEAT</button>
           </div>
         </div>
         
@@ -234,7 +234,7 @@ export default function DynamicClimateControls() {
                   "py-2.5 rounded-xl text-[10px] sm:text-xs font-bold transition-all duration-300 uppercase tracking-wide",
                   isActive
                     ? `${activeColor} text-white shadow-lg`
-                    : "bg-gray-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10"
+                    : "bg-slate-100 dark:bg-[#27272a] text-slate-500 dark:text-gray-400 hover:bg-slate-200 dark:hover:bg-[#3f3f46]"
                 )}
               >
                 {level}

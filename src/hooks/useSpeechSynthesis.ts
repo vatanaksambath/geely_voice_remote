@@ -28,27 +28,33 @@ export const useSpeechSynthesis = () => {
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    // Try to find a Chinese voice
-    const zhVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('cmn'));
-    if (zhVoice) {
-      utterance.voice = zhVoice;
-    }
-    
-    utterance.lang = 'zh-CN';
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-    utterance.volume = 1.0;
+    // Small delay to allow the cancel command to process in the browser engine
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Try to find a Chinese voice
+      const zhVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('cmn'));
+      if (zhVoice) {
+        utterance.voice = zhVoice;
+      }
+      
+      utterance.lang = 'zh-CN';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
 
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = (e) => {
-      console.error('TTS Error:', e);
-      setIsSpeaking(false);
-    };
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = (e) => {
+        // Some browsers throw an empty error on interruption or normal failures, just silently reset state
+        if (e.error !== 'interrupted') {
+          console.warn('TTS Warning:', e.error || 'Unknown error');
+        }
+        setIsSpeaking(false);
+      };
 
-    window.speechSynthesis.speak(utterance);
+      window.speechSynthesis.speak(utterance);
+    }, 50);
   }, [supported, voices]);
 
   const stop = useCallback(() => {
