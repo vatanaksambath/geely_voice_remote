@@ -89,7 +89,7 @@ export default function SoundboardPage() {
       </header>
 
       {/* Commands Area */}
-      <div className="pt-4 pb-28 px-4 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto w-full flex-1 relative z-10">
+      <div className="pt-4 pb-28 px-4 w-full max-w-7xl mx-auto flex-1 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -111,7 +111,7 @@ export default function SoundboardPage() {
             )}
 
             {activeCategory === 'Advanced Controls' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-4 items-start">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4 items-start">
                 <DynamicSmartModes />
                 <DynamicLightingControls />
                 <DynamicSeatControls />
