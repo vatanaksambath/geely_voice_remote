@@ -89,7 +89,7 @@ export default function SoundboardPage() {
       </header>
 
       {/* Commands Area */}
-      <div className="px-6 flex-1 relative z-10">
+      <div className="pt-4 pb-28 px-4 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto w-full flex-1 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -99,19 +99,19 @@ export default function SoundboardPage() {
             transition={{ duration: 0.3 }}
           >
             {activeCategory === 'Climate Control' && (
-              <div className="mb-4">
+              <div className="w-full max-w-md mx-auto mb-4">
                 <DynamicClimateControls />
               </div>
             )}
 
             {activeCategory === 'Vehicle Controls' && (
-              <div className="mb-4">
+              <div className="w-full mb-4">
                 <DynamicWindowControls />
               </div>
             )}
 
             {activeCategory === 'Advanced Controls' && (
-              <div className="flex flex-col space-y-4 mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-4 items-start">
                 <DynamicSmartModes />
                 <DynamicLightingControls />
                 <DynamicSeatControls />
