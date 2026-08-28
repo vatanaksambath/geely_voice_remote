@@ -68,10 +68,24 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     ]
   },
   {
+    id: 'camera_360', category: 'Vehicle Controls', titleEn: '360 Camera', titleKm: 'កាមេរ៉ា ៣៦០',
+    commands: [
+      { id: 'cam_on', labelEn: 'Open', labelKm: 'បើក', chinesePhrase: '打开全景影像' },
+      { id: 'cam_off', labelEn: 'Close', labelKm: 'បិទ', chinesePhrase: '关闭全景影像' },
+    ]
+  },
+  {
     id: 'mirrors', category: 'Vehicle Controls', titleEn: 'Mirrors', titleKm: 'កញ្ចក់ចំហៀង',
     commands: [
       { id: 'mirror_fold', labelEn: 'Fold', labelKm: 'បត់ចូល', chinesePhrase: '折叠后视镜' },
       { id: 'mirror_unfold', labelEn: 'Unfold', labelKm: 'បើកចេញ', chinesePhrase: '展开后视镜' },
+    ]
+  },
+  {
+    id: 'wipers', category: 'Vehicle Controls', titleEn: 'Wipers', titleKm: 'ផ្លិតទឹក',
+    commands: [
+      { id: 'wipers_on', labelEn: 'On', labelKm: 'បើក', chinesePhrase: '打开雨刮' },
+      { id: 'wipers_off', labelEn: 'Off', labelKm: 'បិទ', chinesePhrase: '关闭雨刮' },
     ]
   },
   {
@@ -82,10 +96,10 @@ export const COMMAND_GROUPS: CommandGroup[] = [
     ]
   },
   {
-    id: 'screen_brightness', category: 'Vehicle Controls', titleEn: 'Screen', titleKm: 'អេក្រង់',
+    id: 'screen_brightness', category: 'Vehicle Controls', titleEn: 'Brightness', titleKm: 'ពន្លឺអេក្រង់',
     commands: [
-      { id: 'screen_dim', labelEn: 'Dim', labelKm: 'បន្ថយពន្លឺ', chinesePhrase: '调暗屏幕' },
-      { id: 'screen_bright', labelEn: 'Brighten', labelKm: 'ដំឡើងពន្លឺ', chinesePhrase: '调亮屏幕' },
+      { id: 'screen_dim', labelEn: 'Dim', labelKm: 'បន្ថយ', chinesePhrase: '调暗屏幕' },
+      { id: 'screen_bright', labelEn: 'Bright', labelKm: 'ដំឡើង', chinesePhrase: '调亮屏幕' },
     ]
   },
 
