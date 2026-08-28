@@ -34,31 +34,27 @@ export default function DynamicClimateControls() {
   const tempTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const fanTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const adjustTemp = (delta: number) => {
-    setTemp(prev => {
-      const newTemp = Math.max(16, Math.min(30, prev + delta));
-      
-      if (tempTimeoutRef.current) clearTimeout(tempTimeoutRef.current);
-      tempTimeoutRef.current = setTimeout(() => {
-        handleSpeak(`temp_${newTemp}`, `把温度调到${newTemp}度`);
-      }, 600);
-      
-      return newTemp;
-    });
+  const setAbsoluteTemp = (newTemp: number) => {
+    const clamped = Math.max(16, Math.min(30, newTemp));
+    setTemp(clamped);
+    if (tempTimeoutRef.current) clearTimeout(tempTimeoutRef.current);
+    tempTimeoutRef.current = setTimeout(() => {
+      handleSpeak(`temp_${clamped}`, `把温度调到${clamped}度`);
+    }, 600);
   };
 
-  const adjustFan = (delta: number) => {
-    setFan(prev => {
-      const newFan = Math.max(1, Math.min(9, prev + delta));
-      
-      if (fanTimeoutRef.current) clearTimeout(fanTimeoutRef.current);
-      fanTimeoutRef.current = setTimeout(() => {
-        handleSpeak(`fan_${newFan}`, `把风量调到${newFan}档`);
-      }, 600);
-      
-      return newFan;
-    });
+  const adjustTemp = (delta: number) => setAbsoluteTemp(temp + delta);
+
+  const setAbsoluteFan = (newFan: number) => {
+    const clamped = Math.max(1, Math.min(9, newFan));
+    setFan(clamped);
+    if (fanTimeoutRef.current) clearTimeout(fanTimeoutRef.current);
+    fanTimeoutRef.current = setTimeout(() => {
+      handleSpeak(`fan_${clamped}`, `把风量调到${clamped}档`);
+    }, 600);
   };
+
+  const adjustFan = (delta: number) => setAbsoluteFan(fan + delta);
 
   const setDriverSeatLevel = (level: VentLevel) => {
     if (driverMode === 'vent') {
@@ -115,7 +111,7 @@ export default function DynamicClimateControls() {
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => adjustTemp(-0.5)}
-            className="bg-slate-100 dark:bg-[#27272a] border border-slate-200 dark:border-[#27272a] flex items-center justify-center text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors shadow-sm"
+            className="w-14 h-14 rounded-full bg-slate-100 dark:bg-[#27272a] border border-slate-200 dark:border-[#27272a] flex items-center justify-center text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors shadow-sm"
           >
             <Minus size={24} />
           </motion.button>
@@ -131,6 +127,21 @@ export default function DynamicClimateControls() {
           >
             <Plus size={24} />
           </motion.button>
+        </div>
+
+        <div className="flex flex-col space-y-4 mt-2">
+          <input 
+            type="range" 
+            min="16" max="30" step="0.5" 
+            value={temp} 
+            onChange={(e) => setAbsoluteTemp(parseFloat(e.target.value))} 
+            className="w-full h-2 rounded-lg appearance-none bg-slate-200 dark:bg-[#27272a] accent-cyan-500 cursor-pointer"
+          />
+          <div className="grid grid-cols-3 gap-2">
+            <button onClick={() => setAbsoluteTemp(16)} className="py-2 rounded-xl bg-slate-100 dark:bg-[#27272a] text-slate-700 dark:text-gray-300 font-bold text-[10px] sm:text-xs hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors">LO</button>
+            <button onClick={() => setAbsoluteTemp(23.5)} className="py-2 rounded-xl bg-slate-100 dark:bg-[#27272a] text-slate-700 dark:text-gray-300 font-bold text-[10px] sm:text-xs hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors">MED</button>
+            <button onClick={() => setAbsoluteTemp(26.5)} className="py-2 rounded-xl bg-slate-100 dark:bg-[#27272a] text-slate-700 dark:text-gray-300 font-bold text-[10px] sm:text-xs hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors">HI</button>
+          </div>
         </div>
       </div>
 
@@ -150,7 +161,7 @@ export default function DynamicClimateControls() {
           <motion.button 
             whileTap={{ scale: 0.9 }}
             onClick={() => adjustFan(-1)}
-            className="bg-slate-100 dark:bg-[#27272a] border border-slate-200 dark:border-[#27272a] flex items-center justify-center text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors shadow-sm"
+            className="w-14 h-14 rounded-full bg-slate-100 dark:bg-[#27272a] border border-slate-200 dark:border-[#27272a] flex items-center justify-center text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors shadow-sm"
           >
             <Minus size={24} />
           </motion.button>
@@ -166,6 +177,21 @@ export default function DynamicClimateControls() {
           >
             <Plus size={24} />
           </motion.button>
+        </div>
+
+        <div className="flex flex-col space-y-4 mt-2">
+          <input 
+            type="range" 
+            min="1" max="9" step="1" 
+            value={fan} 
+            onChange={(e) => setAbsoluteFan(parseInt(e.target.value))} 
+            className="w-full h-2 rounded-lg appearance-none bg-slate-200 dark:bg-[#27272a] accent-blue-500 cursor-pointer"
+          />
+          <div className="grid grid-cols-3 gap-2">
+            <button onClick={() => setAbsoluteFan(1)} className="py-2 rounded-xl bg-slate-100 dark:bg-[#27272a] text-slate-700 dark:text-gray-300 font-bold text-[10px] sm:text-xs hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors">LO</button>
+            <button onClick={() => setAbsoluteFan(3)} className="py-2 rounded-xl bg-slate-100 dark:bg-[#27272a] text-slate-700 dark:text-gray-300 font-bold text-[10px] sm:text-xs hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors">MED</button>
+            <button onClick={() => setAbsoluteFan(9)} className="py-2 rounded-xl bg-slate-100 dark:bg-[#27272a] text-slate-700 dark:text-gray-300 font-bold text-[10px] sm:text-xs hover:bg-slate-200 dark:hover:bg-[#3f3f46] transition-colors">HI</button>
+          </div>
         </div>
       </div>
 
